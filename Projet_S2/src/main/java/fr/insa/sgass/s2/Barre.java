@@ -1,15 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package fr.insa.sgass.s2;
 
 import java.util.Objects;
 
-/**
- *
- * @author Sgass
- */
 public class Barre {
     private int ID;
     private Noeud Depart;
