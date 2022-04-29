@@ -92,9 +92,6 @@ public abstract class Noeud {
             return false;
         }
         final Noeud other = (Noeud) obj;
-        if (this.ID != other.ID) {
-            return false;
-        }
         if (this.type != other.type) {
             return false;
         }
