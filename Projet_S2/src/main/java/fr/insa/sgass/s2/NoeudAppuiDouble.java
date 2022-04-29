@@ -10,16 +10,16 @@ package fr.insa.sgass.s2;
  */
 public class NoeudAppuiDouble extends Noeud{
 
-    public NoeudAppuiDouble(int ID, Vecteur pos, Vecteur Effort, int type) {
-        super(ID, pos, Effort, type);
+    public NoeudAppuiDouble(int ID, Vecteur pos, Vecteur Effort) {
+        super(ID, pos, Effort, 2);
     }
 
-    public NoeudAppuiDouble(Vecteur pos, Vecteur Effort, int type) {
-        super(pos, Effort, type);
+    public NoeudAppuiDouble(Vecteur pos, Vecteur Effort) {
+        super(pos, Effort, 2);
     }
 
-    public NoeudAppuiDouble(Vecteur pos, int type) {
-        super(pos, type);
+    public NoeudAppuiDouble(Vecteur pos) {
+        super(pos, 2);
     }
     
     
