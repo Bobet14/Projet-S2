@@ -18,7 +18,9 @@ public class Barre {
     public Barre(int ID, Noeud Depart, Noeud Arrivee) {
         this.ID = ID;
         this.Depart = Depart;
+        this.Depart.addBDepart(this);
         this.Arrivee = Arrivee;
+        this.Arrivee.addBArrivee(this);
     }
 
     public int getID() {
@@ -34,6 +36,7 @@ public class Barre {
     }
 
     public void setDepart(Noeud Depart) {
+        Depart.addBDepart(this);
         this.Depart.setNoeud(Depart);
     }
 
@@ -42,6 +45,7 @@ public class Barre {
     }
 
     public void setArrivee(Noeud Arrivee) {
+        Arrivee.addBArrivee(this);
         this.Arrivee.setNoeud(Arrivee);
     }
 

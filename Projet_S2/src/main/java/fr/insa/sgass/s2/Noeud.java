@@ -4,6 +4,7 @@
  */
 package fr.insa.sgass.s2;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -16,12 +17,16 @@ public abstract class Noeud {
     private Vecteur pos;
     private Vecteur Effort;
     private int type;
+    private ArrayList <Barre> BDepart;
+    private ArrayList <Barre> BArrivee;
 
     public Noeud(int ID, Vecteur pos, Vecteur Effort, int type) {
         this.ID = ID;
         this.pos.setVecteur(pos);
         this.Effort.setVecteur(Effort);
         this.type=type;
+        this.BArrivee = new ArrayList <Barre>();
+        this.BDepart = new ArrayList <Barre>();
     }
 
     public Noeud(Vecteur pos, Vecteur Effort, int type) {
@@ -29,6 +34,8 @@ public abstract class Noeud {
         this.Effort.setVecteur(Effort);
         this.ID=-1;
         this.type=type;
+        this.BArrivee = new ArrayList <Barre>();
+        this.BDepart = new ArrayList <Barre>();
     }
 
     public Noeud(Vecteur pos, int type) {
@@ -36,6 +43,8 @@ public abstract class Noeud {
         this.Effort = new Vecteur (0,0);
         this.ID=-1;
         this.type=type;
+        this.BArrivee = new ArrayList <Barre>();
+        this.BDepart = new ArrayList <Barre>();
     }
 
     public int getID() {
@@ -68,6 +77,26 @@ public abstract class Noeud {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public ArrayList<Barre> getBDepart() {
+        return BDepart;
+    }
+
+    public ArrayList<Barre> getBArrivee() {
+        return BArrivee;
+    }
+    public void addBDepart(Barre b) {
+        BDepart.add(b);
+    }
+    public void addBArrivee(Barre b){
+        BArrivee.add(b);
+    }
+    public void removeBDepart(Barre b) {
+        BDepart.remove(b);
+    }
+    public void removeBArrivee(Barre b) {
+        BArrivee.remove(b);
     }
 
     @Override
@@ -106,6 +135,14 @@ public abstract class Noeud {
         this.type = N.getType();
         this.pos.setVecteur(N.getPos());
         this.Effort.setVecteur(N.getEffort());
+        this.BDepart.clear();
+        this.BArrivee.clear();
+        for (int i=0;i<N.getBDepart().size();i++) {
+            this.BDepart.add(N.getBDepart().get(i));
+        }
+        for (int i=0;i<N.getBArrivee().size();i++) {
+            this.BArrivee.add(N.getBArrivee().get(i));
+        }
     }
     
     
