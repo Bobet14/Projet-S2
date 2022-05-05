@@ -6,6 +6,7 @@ public class Barre {
     private int ID;
     private Noeud Depart;
     private Noeud Arrivee;
+    private double Force;
 
     public Barre(int ID, Noeud Depart, Noeud Arrivee) {
         this.ID = ID;
@@ -13,6 +14,7 @@ public class Barre {
         this.Depart.addBDepart(this);
         this.Arrivee = Arrivee;
         this.Arrivee.addBArrivee(this);
+        this.Force = 0;
     }
 
     public int getID() {
@@ -41,6 +43,14 @@ public class Barre {
         this.Arrivee.setNoeud(Arrivee);
     }
 
+    public double getForce() {
+        return Force;
+    }
+
+    public void setForce(double Force) {
+        this.Force = Force;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 3;

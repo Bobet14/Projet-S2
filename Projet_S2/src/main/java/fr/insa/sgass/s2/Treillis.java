@@ -93,5 +93,33 @@ public class Treillis {
             this.Barres.add(B);
         }
     }
+    public void sortBarres () {
+        Barre stock;
+        for (int i=0;i<this.Barres.size();i++) {
+            int j=i;
+            while ((j>0)&&(this.Barres.get(j).getID()<this.Barres.get(j-1).getID())) {
+                stock=this.Barres.get(j);
+                this.Barres.set(j,this.Barres.get(j-1));
+                this.Barres.set(j-1, stock);
+            }
+        }
+    }
+    public void sortNoeuds () {
+        Noeud stock;
+        for (int i=0;i<this.Noeuds.size();i++) {
+            int j=i;
+            while ((j>0)&&(this.Noeuds.get(j).getID()<this.Noeuds.get(j-1).getID())) {
+                stock=this.Noeuds.get(j);
+                this.Noeuds.set(j,this.Noeuds.get(j-1));
+                this.Noeuds.set(j-1, stock);
+            }
+        }
+    }
+    
+    public int [][] chercheEquation () {
+        int [][] e = new int[this.Noeuds.size()][this.Noeuds.size()+1];
+        
+        return e;
+    }
    
 }
