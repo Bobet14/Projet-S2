@@ -120,7 +120,8 @@ public class Treillis {
         double [][] e = new double[this.Noeuds.size()*2][this.Noeuds.size()*2+1];
         sortBarres();
         sortNoeuds();
-        if (this.Noeuds.size()==this.Barres.size()){
+        boolean condition_calcul = true;
+        if (condition_calcul){
             for (int i=0;i<this.Noeuds.size();i++) {
                 for (int j=0;j<this.Barres.size();j++){
                     if ((this.Barres.get(j).getArrivee().equals(this.Noeuds.get(i)))||this.Barres.get(j).getDepart().equals(this.Noeuds.get(i))){
@@ -128,6 +129,8 @@ public class Treillis {
                         e[2*i+1][2*j+1] = Math.sin(this.Barres.get(j).angle());
                     }
                 }
+                e[2*i][this.Barres.size()*2] = this.Noeuds.get(i).getEffort().getX();
+                e[2*i+1][this.Barres.size()*2] = this.Noeuds.get(i).getEffort().getY();
             }
         }
         else {
