@@ -116,9 +116,23 @@ public class Treillis {
         }
     }
     
-    public int [][] chercheEquation () {
-        int [][] e = new int[this.Noeuds.size()][this.Noeuds.size()+1];
-        
+    public double [][] chercheEquation () {
+        double [][] e = new double[this.Noeuds.size()*2][this.Noeuds.size()*2+1];
+        sortBarres();
+        sortNoeuds();
+        if (this.Noeuds.size()==this.Barres.size()){
+            for (int i=0;i<this.Noeuds.size();i++) {
+                for (int j=0;j<this.Barres.size();j++){
+                    if ((this.Barres.get(j).getArrivee().equals(this.Noeuds.get(i)))||this.Barres.get(j).getDepart().equals(this.Noeuds.get(i))){
+                        e[2*i][2*j] = Math.cos(this.Barres.get(j).angle());
+                        e[2*i+1][2*j+1] = Math.sin(this.Barres.get(j).angle());
+                    }
+                }
+            }
+        }
+        else {
+            System.err.println("Trop/pas assez d'equations");
+        }
         return e;
     }
    
