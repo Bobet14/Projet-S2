@@ -173,4 +173,28 @@ public class Treillis {
         }
         return e;
     }
+    
+    public void gauss(double [][]Systeme){
+        int n = Systeme.length;
+        double [][] M = new double [n][n];
+        double [][] inv = new double [n][n];
+        //on copie la partie gauche des égalites dans une matrice à part
+        for (int i=0;i<n;i++){
+            for (int j=0;j<n;j++){
+                M[i][j] = Systeme[i][j];
+            }
+        }
+        //on recopie la matrice inverse dans la partie gauche des égalités
+        for (int i=0;i<n;i++){
+            for (int j=0;j<n;j++){
+                Systeme[i][j] = M[i][j];
+            }
+        }
+    }
+    
+    public void cgtLigne(double [][]M, double [][]inv, int J1, int J2){
+        for (int i=0;i<M.length;i++){
+            
+        }
+    }
 }
