@@ -1,4 +1,4 @@
-package fr.insa.boomaerts.Treillis;
+package fr.insa.sgass.Treillis;
 
 import java.util.Objects;
 import javafx.scene.canvas.GraphicsContext;
