@@ -1,5 +1,5 @@
 
-package fr.insa.boomaerts.Treillis;
+package fr.insa.sgass.Treillis;
 
 public class NoeudAppuiDouble extends Noeud{
 

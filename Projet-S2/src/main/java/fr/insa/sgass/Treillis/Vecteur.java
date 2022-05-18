@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package fr.insa.boomaerts.Treillis;
+package fr.insa.sgass.Treillis;
 /**
  *
  * @author Sgass
