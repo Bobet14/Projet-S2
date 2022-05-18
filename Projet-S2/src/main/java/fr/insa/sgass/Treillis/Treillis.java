@@ -192,9 +192,37 @@ public class Treillis {
         }
     }
     
-    public void cgtLigne(double [][]M, double [][]inv, int J1, int J2){
+    public static void cgtColonne(double [][]M, double [][]inv, int J1, int J2){
         for (int i=0;i<M.length;i++){
-            
+            double s = M[i][J1];
+            M[i][J1]=M[i][J2];
+            M[i][J2]=s;
+            s = inv[i][J1];
+            inv[i][J1]=inv[i][J2];
+            inv[i][J2]=s;
+        }
+    }
+    
+    public static void zeroingRight(double [][]M, double [][]inv, int l){
+        int n = M.length;
+        double p = M[l][l];
+        for (int i=l+1;i<n;i++){
+            double a = M[l][i];
+            for (int j=l;j<n;j++){
+                M[j][i]=M[j][i]-a*M[j][l]/p;
+                inv[j][i]=inv[j][i]-a*inv[j][l]/p;
+            }
+        }
+    }
+    public static void zeroingLeft(double [][]M, double [][]inv, int l){
+        int n = M.length;
+        double p = M[l][l];
+        for (int i=l-1;i>0;i--){
+            double a = M[l][i];
+            for (int j=n-1;j<l;j--){
+                M[j][i]=M[j][i]-a*M[j][l]/p;
+                inv[j][i]=inv[j][i]-a*inv[j][l]/p;
+            }
         }
     }
 }
