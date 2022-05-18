@@ -127,5 +127,50 @@ public class Treillis {
             b.draw(context);
         }
     }
-
+    
+        public void sortBarres () {
+        Barre stock;
+        for (int i=0;i<this.Barres.size();i++) {
+            int j=i;
+            while ((j>0)&&(this.Barres.get(j).getID()<this.Barres.get(j-1).getID())) {
+                stock=this.Barres.get(j);
+                this.Barres.set(j,this.Barres.get(j-1));
+                this.Barres.set(j-1, stock);
+            }
+        }
+    }
+    public void sortNoeuds () {
+        Noeud stock;
+        for (int i=0;i<this.Noeuds.size();i++) {
+            int j=i;
+            while ((j>0)&&(this.Noeuds.get(j).getID()<this.Noeuds.get(j-1).getID())) {
+                stock=this.Noeuds.get(j);
+                this.Noeuds.set(j,this.Noeuds.get(j-1));
+                this.Noeuds.set(j-1, stock);
+            }
+        }
+    }
+    
+    public double [][] chercheEquation () {
+        double [][] e = new double[this.Noeuds.size()*2][this.Noeuds.size()*2+1];
+        sortBarres();
+        sortNoeuds();
+        boolean condition_calcul = true;
+        if (condition_calcul){
+            for (int i=0;i<this.Noeuds.size();i++) {
+                for (int j=0;j<this.Barres.size();j++){
+                    if ((this.Barres.get(j).getArrivee().equals(this.Noeuds.get(i)))||this.Barres.get(j).getDepart().equals(this.Noeuds.get(i))){
+                        e[2*i][2*j] = Math.cos(this.Barres.get(j).angle());
+                        e[2*i+1][2*j+1] = Math.sin(this.Barres.get(j).angle());
+                    }
+                }
+                e[2*i][this.Barres.size()*2] = this.Noeuds.get(i).getEffort().getX();
+                e[2*i+1][this.Barres.size()*2] = this.Noeuds.get(i).getEffort().getY();
+            }
+        }
+        else {
+            System.err.println("Trop/pas assez d'equations");
+        }
+        return e;
+    }
 }
