@@ -5,7 +5,7 @@
  */
 package fr.insa.boomaerts.interface_standard.JavaFX;
 
-import fr.insa.boomaerts.Treillis.Treillis;
+import fr.insa.sgass.Treillis.Treillis;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import java.io.File;

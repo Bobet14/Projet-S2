@@ -1,4 +1,4 @@
-package fr.insa.boomaerts.Treillis;
+package fr.insa.sgass.Treillis;
 
 import static java.lang.Math.abs;
 import java.util.ArrayList;
