@@ -151,11 +151,20 @@ public class Treillis {
         }
     }
     
-    public double [][] chercheEquation () {
-        double [][] e = new double[this.Noeuds.size()*2][this.Noeuds.size()*2+1];
+    public int noeudAppui (){
+        int a=0;
+        for (int i=0;i<this.Noeuds.size();i++){
+            if (this.Noeuds.get(i).getType()!=0){
+                a++;
+            }
+        }
+        return a;
+    }
+    
+    public void Calcul (double [][] e) {
         sortBarres();
         sortNoeuds();
-        boolean condition_calcul = true;
+        boolean condition_calcul = (this.noeudAppui()>=2);
         if (condition_calcul){
             for (int i=0;i<this.Noeuds.size();i++) {
                 for (int j=0;j<this.Barres.size();j++){
@@ -167,11 +176,14 @@ public class Treillis {
                 e[2*i][this.Barres.size()*2] = this.Noeuds.get(i).getEffort().getX();
                 e[2*i+1][this.Barres.size()*2] = this.Noeuds.get(i).getEffort().getY();
             }
+            gauss(e);
+        }
+        else if (this.noeudAppui()<2) {
+            System.err.println("Il manque un noeud d'appui");
         }
         else {
             System.err.println("Trop/pas assez d'equations");
         }
-        return e;
     }
     
     public void gauss(double [][]Systeme){
@@ -184,6 +196,8 @@ public class Treillis {
                 M[i][j] = Systeme[i][j];
             }
         }
+        //debut de l'algorithme: on rend la matrice triangle
+        
         //on recopie la matrice inverse dans la partie gauche des égalités
         for (int i=0;i<n;i++){
             for (int j=0;j<n;j++){
