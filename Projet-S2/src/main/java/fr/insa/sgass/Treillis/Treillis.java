@@ -197,7 +197,39 @@ public class Treillis {
             }
         }
         //debut de l'algorithme: on rend la matrice triangle
-        
+        for (int i=0;i<n-1;i++){
+            int j=1;
+            //Pivot non nul
+            while ((M[i][i]==0)&&(j+i<n)){
+                cgtColonne(M, inv, i, i+j);
+                j++;
+            }
+            if (j+i<n){
+                zeroingRight(M, inv, i);
+            }
+            else {
+                System.err.println("Matrice non inversible");
+            }
+        }
+        //deuxième partie de l'algorithme: on diagonalise la matrice
+        for (int i=n-1;i>0;i--){
+            int j=1;
+            //Pivot non nul
+            while ((M[i][i]==0)&&(i-j>=0)){
+                cgtColonne(M, inv, i, i-j);
+                j++;
+            }
+            if (j-i>=0){
+                zeroingLeft(M, inv, i);
+            }
+            else {
+                System.err.println("Matrice non inversible");
+            }
+        }
+        //fin de l'algorithme: on rend la matrice identité
+        for (int i=0;i<n;i++){
+            diviseColonne(M, inv, i);
+        }
         //on recopie la matrice inverse dans la partie gauche des égalités
         for (int i=0;i<n;i++){
             for (int j=0;j<n;j++){
@@ -217,26 +249,34 @@ public class Treillis {
         }
     }
     
-    public static void zeroingRight(double [][]M, double [][]inv, int l){
+    public static void zeroingRight(double [][]M, double [][]inv, int c){
         int n = M.length;
-        double p = M[l][l];
-        for (int i=l+1;i<n;i++){
-            double a = M[l][i];
-            for (int j=l;j<n;j++){
-                M[j][i]=M[j][i]-a*M[j][l]/p;
-                inv[j][i]=inv[j][i]-a*inv[j][l]/p;
+        double p = M[c][c];
+        for (int i=c+1;i<n;i++){
+            double a = M[c][i];
+            for (int j=c;j<n;j++){
+                M[j][i]=M[j][i]-a*M[j][c]/p;
+                inv[j][i]=inv[j][i]-a*inv[j][c]/p;
             }
         }
     }
-    public static void zeroingLeft(double [][]M, double [][]inv, int l){
+    public static void zeroingLeft(double [][]M, double [][]inv, int c){
         int n = M.length;
-        double p = M[l][l];
-        for (int i=l-1;i>0;i--){
-            double a = M[l][i];
-            for (int j=n-1;j<l;j--){
-                M[j][i]=M[j][i]-a*M[j][l]/p;
-                inv[j][i]=inv[j][i]-a*inv[j][l]/p;
+        double p = M[c][c];
+        for (int i=c-1;i>0;i--){
+            double a = M[c][i];
+            for (int j=n-1;j<c;j--){
+                M[j][i]=M[j][i]-a*M[j][c]/p;
+                inv[j][i]=inv[j][i]-a*inv[j][c]/p;
             }
+        }
+    }
+    public static void diviseColonne(double [][]M, double [][]inv, int c){
+        double d = M[c][c];
+        int n = M.length;
+        for (int i=0;i<n;i++){
+            M[i][c] = M[i][c]/d;
+            inv[i][c]=inv[i][c]/d;
         }
     }
 }
