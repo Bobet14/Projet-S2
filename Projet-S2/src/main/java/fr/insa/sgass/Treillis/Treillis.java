@@ -194,6 +194,10 @@ public class Treillis {
         int n = Systeme.length;
         double [][] M = new double [n][n];
         double [][] inv = new double [n][n];
+        //la matrice inv est l'identité au début
+        for (int i=0;i<n;i++){
+            inv[i][i]=1;
+        }
         //on copie la partie gauche des égalites dans une matrice à part
         for (int i=0;i<n;i++){
             for (int j=0;j<n;j++){
@@ -217,18 +221,7 @@ public class Treillis {
         }
         //deuxième partie de l'algorithme: on diagonalise la matrice
         for (int i=n-1;i>0;i--){
-            int j=1;
-            //Pivot non nul
-            while ((M[i][i]==0)&&(i-j>=0)){
-                cgtColonne(M, inv, i, i-j);
-                j++;
-            }
-            if (j-i>=0){
-                zeroingLeft(M, inv, i);
-            }
-            else {
-                System.err.println("Matrice non inversible");
-            }
+            zeroingLeft(M, inv, i);
         }
         //fin de l'algorithme: on rend la matrice identité
         for (int i=0;i<n;i++){
@@ -237,9 +230,10 @@ public class Treillis {
         //on recopie la matrice inverse dans la partie gauche des égalités
         for (int i=0;i<n;i++){
             for (int j=0;j<n;j++){
-                Systeme[i][j] = M[i][j];
+                Systeme[i][j] = inv[i][j];
             }
         }
+        Test_Matrice.print(M);
     }
     
     public static void cgtColonne(double [][]M, double [][]inv, int J1, int J2){
@@ -258,7 +252,7 @@ public class Treillis {
         double p = M[c][c];
         for (int i=c+1;i<n;i++){
             double a = M[c][i];
-            for (int j=c;j<n;j++){
+            for (int j=0;j<n;j++){
                 M[j][i]=M[j][i]-a*M[j][c]/p;
                 inv[j][i]=inv[j][i]-a*inv[j][c]/p;
             }
@@ -267,7 +261,7 @@ public class Treillis {
     public static void zeroingLeft(double [][]M, double [][]inv, int c){
         int n = M.length;
         double p = M[c][c];
-        for (int i=c-1;i>0;i--){
+        for (int i=0;i<c;i++){
             double a = M[c][i];
             for (int j=0;j<n;j++){
                 M[j][i]=M[j][i]-a*M[j][c]/p;
