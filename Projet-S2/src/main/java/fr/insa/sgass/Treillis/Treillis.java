@@ -1,6 +1,8 @@
 package fr.insa.sgass.Treillis;
 
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileDescriptor;
 import java.io.FileWriter;
 import java.io.IOException;
 import static java.lang.Math.abs;
@@ -280,8 +282,14 @@ public class Treillis {
     }
     
     public void creerSauvegarde(String f) throws IOException{
-        f=f+".txt";
-        FileWriter fw = new FileWriter(f);
+        int I=0;
+        ArrayList <File> F = new ArrayList<>();
+        F.add(new File (f+".txt"));
+        while(!F.get(I).createNewFile()){
+            I++;
+            F.add(new File(f+I+".txt"));
+        }
+        FileWriter fw = new FileWriter(F.get(I));
         BufferedWriter bw = new BufferedWriter(fw);
         bw.write("Noeuds:\r\n");
         for (int i=0;i<this.Noeuds.size();i++){
@@ -296,6 +304,8 @@ public class Treillis {
         bw.close();
         fw.close();
     }
+    
+    //Est ce que le caractère peut faire partie d'un double (chiffre ou '.')
     public static boolean isDouble (char c){
         return (((c<=57)&&(c>=48))||(c==46)) ;  
     }
