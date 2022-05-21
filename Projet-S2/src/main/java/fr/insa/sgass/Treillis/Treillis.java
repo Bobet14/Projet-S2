@@ -269,7 +269,7 @@ public class Treillis {
         double p = M[c][c];
         for (int i=c-1;i>0;i--){
             double a = M[c][i];
-            for (int j=n-1;j<c;j--){
+            for (int j=0;j<n;j++){
                 M[j][i]=M[j][i]-a*M[j][c]/p;
                 inv[j][i]=inv[j][i]-a*inv[j][c]/p;
             }
