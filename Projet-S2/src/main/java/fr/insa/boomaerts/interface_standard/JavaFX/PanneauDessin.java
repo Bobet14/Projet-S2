@@ -34,5 +34,5 @@ public class PanneauDessin extends Pane {
             this.PositionSouris.setText"X : " + i.getX()+ "\n" + "Y : " +i.getY());
         });
         */
-    }
+    //}
 }

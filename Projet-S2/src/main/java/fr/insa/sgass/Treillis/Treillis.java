@@ -151,11 +151,20 @@ public class Treillis {
         }
     }
     
-    public double [][] chercheEquation () {
-        double [][] e = new double[this.Noeuds.size()*2][this.Noeuds.size()*2+1];
+    public int noeudAppui (){
+        int a=0;
+        for (int i=0;i<this.Noeuds.size();i++){
+            if (this.Noeuds.get(i).getType()!=0){
+                a++;
+            }
+        }
+        return a;
+    }
+    
+    public void Calcul (double [][] e) {
         sortBarres();
         sortNoeuds();
-        boolean condition_calcul = true;
+        boolean condition_calcul = (this.noeudAppui()>=2);
         if (condition_calcul){
             for (int i=0;i<this.Noeuds.size();i++) {
                 for (int j=0;j<this.Barres.size();j++){
@@ -167,10 +176,111 @@ public class Treillis {
                 e[2*i][this.Barres.size()*2] = this.Noeuds.get(i).getEffort().getX();
                 e[2*i+1][this.Barres.size()*2] = this.Noeuds.get(i).getEffort().getY();
             }
+            gauss(e);
+        }
+        else if (this.noeudAppui()<2) {
+            System.err.println("Il manque un noeud d'appui");
         }
         else {
             System.err.println("Trop/pas assez d'equations");
         }
-        return e;
+    }
+    
+    public static void gauss(double [][]Systeme){
+        int n = Systeme.length;
+        double [][] M = new double [n][n];
+        double [][] inv = new double [n][n];
+        //la matrice inv est l'identité au début
+        for (int i=0;i<n;i++){
+            inv[i][i]=1;
+        }
+        //on copie la partie gauche des égalites dans une matrice à part
+        for (int i=0;i<n;i++){
+            for (int j=0;j<n;j++){
+                M[i][j] = Systeme[i][j];
+            }
+        }
+        //debut de l'algorithme: on rend la matrice triangle
+        for (int i=0;i<n-1;i++){
+            int j=1;
+            //Pivot non nul
+            while ((M[i][i]==0)&&(j+i<n)){
+                cgtColonne(M, inv, i, i+j);
+                j++;
+            }
+            if (j+i<n){
+                zeroingRight(M, inv, i);
+            }
+            else {
+                System.err.println("Matrice non inversible");
+            }
+        }
+        //deuxième partie de l'algorithme: on diagonalise la matrice
+        for (int i=n-1;i>0;i--){
+            int j=1;
+            //Pivot non nul
+            while ((M[i][i]==0)&&(i-j>=0)){
+                cgtColonne(M, inv, i, i-j);
+                j++;
+            }
+            if (j-i>=0){
+                zeroingLeft(M, inv, i);
+            }
+            else {
+                System.err.println("Matrice non inversible");
+            }
+        }
+        //fin de l'algorithme: on rend la matrice identité
+        for (int i=0;i<n;i++){
+            diviseColonne(M, inv, i);
+        }
+        //on recopie la matrice inverse dans la partie gauche des égalités
+        for (int i=0;i<n;i++){
+            for (int j=0;j<n;j++){
+                Systeme[i][j] = inv[i][j];
+            }
+        }
+    }
+    
+    public static void cgtColonne(double [][]M, double [][]inv, int J1, int J2){
+        for (int i=0;i<M.length;i++){
+            double s = M[i][J1];
+            M[i][J1]=M[i][J2];
+            M[i][J2]=s;
+            s = inv[i][J1];
+            inv[i][J1]=inv[i][J2];
+            inv[i][J2]=s;
+        }
+    }
+    
+    public static void zeroingRight(double [][]M, double [][]inv, int c){
+        int n = M.length;
+        double p = M[c][c];
+        for (int i=c+1;i<n;i++){
+            double a = M[c][i];
+            for (int j=c;j<n;j++){
+                M[j][i]=M[j][i]-a*M[j][c]/p;
+                inv[j][i]=inv[j][i]-a*inv[j][c]/p;
+            }
+        }
+    }
+    public static void zeroingLeft(double [][]M, double [][]inv, int c){
+        int n = M.length;
+        double p = M[c][c];
+        for (int i=c-1;i>0;i--){
+            double a = M[c][i];
+            for (int j=n-1;j<c;j--){
+                M[j][i]=M[j][i]-a*M[j][c]/p;
+                inv[j][i]=inv[j][i]-a*inv[j][c]/p;
+            }
+        }
+    }
+    public static void diviseColonne(double [][]M, double [][]inv, int c){
+        double d = M[c][c];
+        int n = M.length;
+        for (int i=0;i<n;i++){
+            M[i][c] = M[i][c]/d;
+            inv[i][c]=inv[i][c]/d;
+        }
     }
 }
