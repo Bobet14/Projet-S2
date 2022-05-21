@@ -291,7 +291,7 @@ public class Treillis {
         bw.write("Noeuds:\r\n");
         for (int i=0;i<this.Noeuds.size();i++){
             Noeud N = this.Noeuds.get(i);
-            bw.write(""+N.getID()+";("+N.getPos().getX()+";"+N.getPos().getY()+");("+N.getEffort().getX()+";"+N.getEffort().getY()+")\r\n");
+            bw.write(""+N.getID()+";"+N.getType()+";("+N.getPos().getX()+";"+N.getPos().getY()+");("+N.getEffort().getX()+";"+N.getEffort().getY()+")\r\n");
         }
         bw.write("Barres:\r\n");
         for (int i=0;i<this.Barres.size();i++){
@@ -315,7 +315,7 @@ public class Treillis {
             int id = n.charAt(0)-'0';
             double px=0;
             ArrayList <Character> c = new ArrayList<Character>();
-            int i=3;
+            int i=5;
             int j=0;
             while (isDouble(n.charAt(i))) {
                 if (n.charAt(i)=='.'){
@@ -345,6 +345,39 @@ public class Treillis {
             for (int k=0;k<c.size();k++){
                 py = py+(c.get(k)-'0')*Math.pow(10, j-k);
             }
+            c.clear();
+            i=i+2;
+            j=i;
+            double ex=0;
+            while (isDouble(n.charAt(i))){
+                if (n.charAt(i)=='.'){
+                    j=i-j;
+                }
+                else {
+                    c.add(n.charAt(i));
+                }
+                i++;
+            }
+            for (int k=0;k<c.size();k++){
+                ex = ex+(c.get(k)-'0')*Math.pow(10, j-k);
+            }
+            c.clear();
+            i++;
+            j=i;
+            double ey=0;
+            while (isDouble(n.charAt(i))){
+                if (n.charAt(i)=='.'){
+                    j=i-j;
+                }
+                else {
+                    c.add(n.charAt(i));
+                }
+                i++;
+            }
+            for (int k=0;k<c.size();k++){
+                ey = ey+(c.get(k)-'0')*Math.pow(10, j-k);
+            }
+            this.Noeuds.add(new Noeud(id,new Vecteur(px,py),new Vecteur(ex, ey), n.charAt(2)-'0'));
         }
     }
 }
