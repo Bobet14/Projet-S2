@@ -190,10 +190,6 @@ public class Treillis {
         int n = Systeme.length;
         double [][] M = new double [n][n];
         double [][] inv = new double [n][n];
-        //la matrice inv est l'identité au début
-        for (int i=0;i<n;i++){
-            inv[i][i]=1;
-        }
         //on copie la partie gauche des égalites dans une matrice à part
         for (int i=0;i<n;i++){
             for (int j=0;j<n;j++){
@@ -237,7 +233,7 @@ public class Treillis {
         //on recopie la matrice inverse dans la partie gauche des égalités
         for (int i=0;i<n;i++){
             for (int j=0;j<n;j++){
-                Systeme[i][j] = inv[i][j];
+                Systeme[i][j] = M[i][j];
             }
         }
     }
