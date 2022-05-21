@@ -313,16 +313,38 @@ public class Treillis {
         while (sc.hasNext()&&!sc.nextLine().equals("Barres:")){
             String n = sc.nextLine();
             int id = n.charAt(0)-'0';
-            double px;
+            double px=0;
             ArrayList <Character> c = new ArrayList<Character>();
             int i=3;
             int j=0;
             while (isDouble(n.charAt(i))) {
-                c.add(n.charAt(i));
-                if (n.charAt(i)=='.');
+                if (n.charAt(i)=='.'){
+                    j=i-3;
+                }
+                else{
+                    c.add(n.charAt(i));
+                }
                 i++;
             }
-            
+            for (int k=0;k<c.size();k++){
+                px=px+(c.get(k)-'0')*Math.pow(10, j-k);
+            }
+            c.clear();
+            i++;
+            double py=0;
+            j=i;
+            while (isDouble(n.charAt(i))){
+                if (n.charAt(i)=='.'){
+                    j=i-j;
+                }
+                else {
+                    c.add(n.charAt(i));
+                }
+                i++;
+            }
+            for (int k=0;k<c.size();k++){
+                py = py+(c.get(k)-'0')*Math.pow(10, j-k);
+            }
         }
     }
 }
