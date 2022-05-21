@@ -35,6 +35,7 @@ public class Test_Matrice {
     
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        System.out.println(0.5);
         System.out.println("Taille?");
         int n = sc.nextInt();
         double [][] M = new double [n][n];

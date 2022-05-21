@@ -1,7 +1,11 @@
 package fr.insa.sgass.Treillis;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import static java.lang.Math.abs;
 import java.util.ArrayList;
+import java.util.Scanner;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Treillis {
@@ -277,6 +281,48 @@ public class Treillis {
         for (int i=0;i<n;i++){
             M[i][c] = M[i][c]/d;
             inv[i][c]=inv[i][c]/d;
+        }
+    }
+    
+    public void creerSauvegarde(String f) throws IOException{
+        f=f+".txt";
+        FileWriter fw = new FileWriter(f);
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write("Noeuds:\r\n");
+        for (int i=0;i<this.Noeuds.size();i++){
+            Noeud N = this.Noeuds.get(i);
+            bw.write(""+N.getID()+";("+N.getPos().getX()+";"+N.getPos().getY()+");("+N.getEffort().getX()+";"+N.getEffort().getY()+")\r\n");
+        }
+        bw.write("Barres:\r\n");
+        for (int i=0;i<this.Barres.size();i++){
+            Barre B = this.Barres.get(i);
+            bw.write(""+B.getID()+";"+B.getDepart().getID()+";"+B.getArrivee().getID() +"\r\n");
+        }
+        bw.close();
+        fw.close();
+    }
+    public static boolean isDouble (char c){
+        return (((c<=57)&&(c>=48))||(c==46)) ;  
+    }
+    
+    public Treillis(String f) {
+        f=f+".txt";
+        Scanner sc = new Scanner(f);
+        this.Noeuds = new ArrayList<Noeud>();
+        this.Barres = new ArrayList<Barre>();
+        while (sc.hasNext()&&!sc.nextLine().equals("Barres:")){
+            String n = sc.nextLine();
+            int id = n.charAt(0)-'0';
+            double px;
+            ArrayList <Character> c = new ArrayList<Character>();
+            int i=3;
+            int j=0;
+            while (isDouble(n.charAt(i))) {
+                c.add(n.charAt(i));
+                if (n.charAt(i)=='.');
+                i++;
+            }
+            
         }
     }
 }
