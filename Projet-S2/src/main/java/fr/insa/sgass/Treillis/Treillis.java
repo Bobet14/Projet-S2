@@ -186,7 +186,7 @@ public class Treillis {
         }
     }
     
-    public void gauss(double [][]Systeme){
+    public static void gauss(double [][]Systeme){
         int n = Systeme.length;
         double [][] M = new double [n][n];
         double [][] inv = new double [n][n];
