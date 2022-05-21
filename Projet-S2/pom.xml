@@ -46,7 +46,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.techglimpse.mainSimulationProgram</mainClass>
+                            <mainClass>fr.insa.sgass.Treillis.Test_Matrice</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
