@@ -132,7 +132,8 @@ public class Treillis {
         }
     }
     
-        public void sortBarres () {
+    //Trie respectivement les barres et les noeuds par indice
+    public void sortBarres () {
         Barre stock;
         for (int i=0;i<this.Barres.size();i++) {
             int j=i;
@@ -372,6 +373,11 @@ public class Treillis {
                 ey = ey+(c.get(k)-'0')*Math.pow(10, j-k);
             }
             this.Noeuds.add(new Noeud(id,new Vecteur(px,py),new Vecteur(ex, ey), n.charAt(2)-'0'));
+        }
+        sortNoeuds();
+        while (sc.hasNext()){
+            String b = sc.nextLine();
+            this.Barres.add(new Barre(b.charAt(0)-'0', Noeuds.get(b.charAt(2)-'0'), Noeuds.get(b.charAt(4)-'0')));
         }
     }
 }
