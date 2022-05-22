@@ -2,7 +2,7 @@ package fr.insa.sgass.Treillis;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileDescriptor;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import static java.lang.Math.abs;
@@ -291,6 +291,7 @@ public class Treillis {
         }
         FileWriter fw = new FileWriter(F.get(I));
         BufferedWriter bw = new BufferedWriter(fw);
+        sortNoeuds();
         bw.write("Noeuds:\r\n");
         for (int i=0;i<this.Noeuds.size();i++){
             Noeud N = this.Noeuds.get(i);
